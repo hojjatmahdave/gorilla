@@ -5,14 +5,10 @@ const App = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await fetch("https://reqres.in/api/users?page=1").then(
-          async (response) => {
-            console.log(response);
-
-            // const result = await response.json();
-            // setData(result);
-          }
-        );
+        const res = await fetch("https://reqres.in/api/users?page=1");
+        const data = await res.json();
+        console.log(data.data);
+        setData(data.data);
       } catch (error) {
         console.log(error);
       }
@@ -20,7 +16,17 @@ const App = () => {
 
     fetchData();
   }, []);
-  return <div>{/* {data.map((item:any)=>{})} */}</div>;
+  return (
+    <div>
+      {data.map((item: any) => {
+        return (
+          <div>
+            <p>{item.first_name + " " + item.last_name}</p>
+          </div>
+        );
+      })}
+    </div>
+  );
 };
 
 export default App;
